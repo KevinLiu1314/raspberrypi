@@ -1,0 +1,3 @@
+wget http://rpf.io/farts -O farts.zip
+unzip -j farts.zip
+aplay ben-fart.wav
