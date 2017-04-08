@@ -1,6 +1,6 @@
 import time
 import RPi.GPIO as GPIO
-from gpiozero import LED
+from gpiozero import LED, Button
 
 GPIO.setmode(GPIO.BCM)
 
@@ -40,6 +40,17 @@ def readadc(adcnum, clockpin, mosipin, misopin, cspin):
     adcout >>= 1       # first bit is 'null' so drop it
     return adcout
 
+
+def action():
+    global first, third, old_trim_pot
+
+    temp = first
+    first = third
+    third = temp
+
+    old_trim_pot = -728
+
+
 # change these as desired - they're the pins connected from the
 # SPI port on the ADC to the Cobbler
 SPICLK = 18     # CLK
@@ -60,6 +71,8 @@ potentiometer_adc = 0
 first = LED(2)      # First LED
 second = LED(3)     # Second LED
 third = LED(4)      # Third LED
+btn = Button(17)    # button
+btn.when_released = action
 
 old_trim_pot = -728
 while True:
