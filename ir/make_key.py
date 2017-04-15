@@ -28,7 +28,7 @@ keys = {'KEY_0': '0',
 'KEY_ZOOM': 'ZOOM',
 }
 
-prog = 'irtest'
+prog = 'irkeys'
 
 for key in sorted(keys):
     print("begin")

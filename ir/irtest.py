@@ -1,7 +1,7 @@
 import lirc
 import time
 
-sockid = lirc.init("irtest", blocking = False)   #IR-code
+sockid = lirc.init("irkeys", blocking = False)   #IR-code
 
 while True:
     codeIR = lirc.nextcode()    #IR-code

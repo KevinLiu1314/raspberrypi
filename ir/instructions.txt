@@ -1,0 +1,47 @@
+http://www.instructables.com/id/How-To-Useemulate-remotes-with-Arduino-and-Raspber/
+-----------
+sudo apt-get update
+sudo apt-get upgrade
+sudo rpi-update
+sudo reboot
+
+sudo apt-get install lirc
+-----------
+sudo nano /etc/modules
+and add these lines at the end to make LIRC start up on boot and set the IR sensor pin to Pin-18 and IR LED pin(for later) to Pin-17:
+
+lirc_dev
+lirc_rpi gpio_in_pin=18 gpio_out_pin=17
+
+------------------
+sudo nano /etc/lirc/hardware.conf
+Change the following lines:
+
+DRIVER="default"
+DEVICE="/dev/lirc0"
+MODULES="lirc_rpi"
+That's it! To make it work, you need to reboot your Raspi once:
+
+sudo reboot
+
+---------
+Note: buda.suyasa found out that to make LIRC work on Raspberry Pi 2, you need to edit /boot/config.txt using:
+
+sudo nano /boot/config.txt
+add the following line to it:
+
+dtoverlay=lirc-rpi,gpio_in_pin=18,gpio_out_pin=17,gpio_in_pull=up
+---------
+sudo /etc/init.d/lirc stop
+mode2 -d /dev/lirc0
+irrecord --list-namespace
+irrecord -d /dev/lirc0 ~/lircd.conf
+sudo nano lircd.conf
+sudo cp lircd.conf /etc/lirc/lircd.conf
+sudo /etc/init.d/lirc start
+irw
+
+Note: If you are getting multiple output per button press, you can add
+
+suppress_repeat 2
+in the /etc/lirc/lircd.conf file so it ignores the next 2 repeat values.
