@@ -9,6 +9,9 @@ current_volume = 65
 set_vol_cmd = 'sudo amixer cset numid=1 -- {volume}% > /dev/null' .format(volume = current_volume)
 os.system(set_vol_cmd)  # set volume
 
+stdout.write("\r\r\r%3d" % current_volume)
+stdout.flush()
+
 while True:
     codeIR = lirc.nextcode()    #IR-code
     if len(codeIR)>0 and codeIR[0] in ['UP', 'DOWN', 'LEFT', 'RIGHT', 'POWER']:
@@ -31,5 +34,5 @@ while True:
         set_vol_cmd = 'sudo amixer cset numid=1 -- {volume}% > /dev/null' .format(volume = current_volume)
         os.system(set_vol_cmd)  # set volume
 
-    stdout.write("\r\r\r%3d" % current_volume)
-    stdout.flush()
+        stdout.write("\r\r\r%3d" % current_volume)
+        stdout.flush()
