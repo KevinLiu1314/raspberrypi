@@ -36,3 +36,5 @@ while True:
 
         stdout.write("\r\r\r%3d" % current_volume)
         stdout.flush()
+
+    time.sleep(.5)
