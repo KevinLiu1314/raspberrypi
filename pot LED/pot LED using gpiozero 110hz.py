@@ -46,7 +46,7 @@ def action():
 
     button_press_counter += 1
     if button_press_counter % secret_number == 0:
-        mode = "100HZ"
+        mode = "110HZ"
     else:
         mode = "NORMAL"
     
@@ -84,18 +84,18 @@ btn.when_released = action
 button_press_counter = 0
 secret_number = 8
 mode = "NORMAL"
-already_100HZ = False
+already_110HZ = False
 
 old_trim_pot = -728
 while True:
-    if mode == "100HZ" and not already_100HZ:
+    if mode == "110HZ" and not already_110HZ:
         first.blink(.5/110, .5/110)
         second.blink(.5/110, .5/110)
         third.blink(.5/110, .5/110)
-        already_100HZ = True
+        already_110HZ = True
     elif mode == "NORMAL":
         #reset status
-        already_100HZ = False
+        already_110HZ = False
         
         # read the analog pin
         trim_pot = readadc(potentiometer_adc, SPICLK, SPIMOSI, SPIMISO, SPICS)
@@ -117,4 +117,4 @@ while True:
 
             old_trim_pot = trim_pot
 
-    time.sleep(.5)                            
+    time.sleep(.25)                            
